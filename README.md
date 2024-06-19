@@ -4,8 +4,8 @@ Since there is no good source to hook BitBlt from gdi32.dll, I decided to releas
 ### Why BitBlt?
 BitBlt is a function from the Windows API commonly used to capture screenshots of the game screen to detect any ESP drawing or cheating. It is widely used as an anti-cheating method, for example in Valorant, FairFight, PunkBuster, and Ricochet from Call of Duty.
 
-### About the code:
-The code is well-structured to ensure it is understandable. As you can see, the logic is simple: we have different classes—one for our cheat settings and another containing imports for BitBlt and our hooked BitBlt. With this code, when BitBlt is called, our hooked function is triggered. It calls our TurnOFF function to disable our drawing. If the result is not empty, we return to our drawing method.
+### About the code
+The code is well structured to ensure it is understandable. As you can see, the logic is simple: we have different classes—one for our cheat settings and another containing imports for BitBlt and our hooked BitBlt. With this code, when BitBlt is called, our hooked function is triggered. It calls our TurnOFF function to disable our drawing. If the result is not empty, we return to our drawing method.
 ```cpp
 namespace Import
 {
