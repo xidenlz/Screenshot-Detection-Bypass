@@ -1,0 +1,2 @@
+# Screenshot-Cleaner
+BitBlt hook
