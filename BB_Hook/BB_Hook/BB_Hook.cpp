@@ -88,7 +88,8 @@ namespace Import
 		}
 }
 
-void SetupBitBltHook() {
+void SetupBitBltHook() 
+{
 	try 
 	{
 		MH_Initialize(); 
