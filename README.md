@@ -21,7 +21,7 @@ Overlay with the function call visible:
 ![here](https://github.com/xidenlz/Screenshot-Detection-Bypass/blob/main/Images/real_ss2.png)
 
 
-This should work with most anti-cheat systems. However, depending on the game, additional screenshot related functions may also need to be hooked. If the game relies on BitBlt for screenshot capture, this hook should work perfectly.
+This should work with most anti-cheats. However, depending on the game, additional screenshot related functions may also need to be hooked. If the game relies on BitBlt for screenshot capture, this hook should work perfectly.
 
 
 ### Credits
