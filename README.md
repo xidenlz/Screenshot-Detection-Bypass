@@ -2,43 +2,28 @@
 Since there is no good source to hook BitBlt from gdi32.dll, I decided to release this simple project that will help you understand how to hook BitBlt and enable it to take a clean screenshot of the game window.
 
 ### Why BitBlt?
-BitBlt is a function from the Windows API commonly used to capture screenshots of the game screen to detect any ESP drawing or cheating. It is widely used as an anti-cheating method, for example in Valorant, FairFight, PunkBuster, and Ricochet from Call of Duty.
-
-### About the code
-The code is well structured to ensure it is understandable. As you can see, the logic is simple: we have different classes one for our cheat settings and another containing imports for BitBlt and our hooked BitBlt. With this code, when BitBlt is called, our hooked function is triggered. It calls our TurnOFF function to disable our drawing. If the result is not empty, we return to our drawing method.
-```cpp
-namespace Import
-{
-
-		/* Import BitBlt */
-		typedef BOOL(WINAPI* tBitBlt)(HDC, int, int, int, int, HDC, int, int, DWORD);
-		tBitBlt oBitBlt = nullptr;
+BitBlt is a function from the Windows API that is commonly used to capture screenshots of a game's screen to detect ESP overlays, visual modifications, or other forms of cheating. It is widely used as part of anti-cheat systems, including those found in games such as Valorant, as well as anti-cheat solutions like FairFight, PunkBuster, and Ricochet for Call of Duty.
 
 
-		/* Our Hooked BitBlt */
-		BOOL WINAPI hkBitBlt(HDC hdcDest, int xDest, int yDest, int width, int height, HDC hdcSrc, int xSrc, int ySrc, DWORD rop) 
-		{
+### About project
+This project provides two examples:
 
-			TurnOFF(); // Turn OFF our drawing because BitBlt called
+1. [internal_hook](https://github.com/xidenlz/Screenshot-Detection-Bypass/tree/main/Hook/internal_hook) that's hooks the BitBlt function.
+2. [Dummy](https://github.com/xidenlz/Screenshot-Detection-Bypass/tree/main/Tests) which is just a target application used to test the hook.
 
-			BOOL result = oBitBlt(hdcDest, xDest, yDest, width, height, hdcSrc, xSrc, ySrc, rop);
+The hook includes its own overlay, allowing us to verify whether screenshots remain clean. As shown below, the captured screenshot appears clean:
+![here](https://github.com/xidenlz/Screenshot-Detection-Bypass/blob/main/Images/bitblit_ss.bmp)
+
+However, an overlay is actually being rendered and is not detected in the screenshot:
+![here](https://github.com/xidenlz/Screenshot-Detection-Bypass/blob/main/Images/real_ss1.png)
+
+Overlay with the function call visible:
+![here](https://github.com/xidenlz/Screenshot-Detection-Bypass/blob/main/Images/real_ss2.png)
 
 
-			/* Drawing has been turned off, return to result AKA Clean screenshot */
-			return result;
+This should work with most anti-cheat systems. However, depending on the game, additional screenshot related functions may also need to be hooked. If the game relies on BitBlt for screenshot capture, this hook should work perfectly.
 
-			/* Return to drawing */
-			if (result != NULL)
-			{
-				printf("Clean screenshot has been taken\n");
 
-				m_Draw->chams = true;
-				m_Draw->ESP = true;
-				m_Draw->ESP_LINE = true;
-			}
-		}
-}
-```
-
-### Support
-I plan to release more content about game hacking techniques that have never been explained before, so please consider starring the repo. It means a lot to me.
+### Credits
+* [Extreme injector](https://github.com/master131/extremeinjector) by [@master131](https://github.com/master131)
+* [MinHook](https://github.com/tsudakageyu/minhook) by the MinHook contributors.
